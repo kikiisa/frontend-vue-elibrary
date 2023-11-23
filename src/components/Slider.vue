@@ -1,7 +1,7 @@
 <template>
   <div class="row justify-content-center">
     <div class="col-lg-10 col-12">
-        <div class="card border-0 mt-4">
+        <div class="card border-0">
           <div class="card-body">
             <swiper auto class="text-center">
               <swiper-slide>

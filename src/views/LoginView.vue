@@ -27,6 +27,9 @@
             <button class="btn btn-dark bg-blue w-100 mt-4">MASUK</button>
           </div>
         </div>
+        <div class="text-center mt-4">
+            <p>Belum Punya Akun ? <router-link to="/registrasi">Daftar Sekarang </router-link></p>
+        </div>
       </div>
     </div>
   </main>
@@ -36,14 +39,4 @@
   background-color: #374151;
 }
 
-.form-control {
-  height: 40px;
-  border-width: 1px;
-  background-color: #E5E7EB;
-}
-.form-control:focus {
-  box-shadow: none;
-  background-color: transparent;
-  border-color: #E5E7EB;
-}
 </style>
