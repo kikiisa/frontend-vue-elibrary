@@ -39,4 +39,14 @@
   background-color: #374151;
 }
 
+.form-control {
+  height: 40px;
+  border-width: 1px;
+  background-color: #E5E7EB;
+}
+.form-control:focus {
+  box-shadow: none;
+  background-color: transparent;
+  border-color: #E5E7EB;
+}
 </style>

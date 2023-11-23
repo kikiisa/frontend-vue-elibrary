@@ -1,5 +1,5 @@
 <template>
-    <div class="row justify-content-center mt-4 mb-4">
+    <div class="row justify-content-center mt-4 book-wraper">
         <div class="col-lg-10 mb-2">
            <div class="form-group">
                 <input type="text" placeholder="Cari Buku Disini " class="form-control fs-5">
@@ -113,5 +113,8 @@
   
   background-color: white;
   border-color: #374151;
+}
+.book-wraper{
+    margin-bottom: 130px;
 }
 </style>
