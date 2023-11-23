@@ -1,0 +1,12 @@
+@import './base.css';
+.bg-blue{
+  background-color: #374151;
+
+}
+#body{
+  background-color: #D1D5DB;
+}
+
+#app{
+  font-family: 'Quicksand', sans-serif;
+}
