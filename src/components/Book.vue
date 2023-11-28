@@ -115,6 +115,6 @@
   border-color: #374151;
 }
 .book-wraper{
-    margin-bottom: 130px;
+    margin-bottom: 90px;
 }
 </style>

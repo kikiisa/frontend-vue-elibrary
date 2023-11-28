@@ -1,34 +1,31 @@
+<script setup>
+    import axios from 'axios';
+    import { onMounted, ref } from 'vue';
+    import Loading from '../components/Loading.vue'
+    import { url,base } from '../api/Url';
+    const datas = ref([])
+    let loading = ref(false)
+    const fetchData = async () => {
+        const response = await axios.get(url + 'kategori')
+        loading.value = true
+        datas.value = response.data.data
+    }
+    onMounted(() => {
+        fetchData()
+    })
+</script>
 <template>
-    <div class="row  justify-content-center mt-4">
+    <Loading v-if="loading == false"/>
+    <div class="row  justify-content-center mt-4" v-else>
         <div class="col-lg-10 col-12">
             <div class="row">
-                <div class="col-lg-3 col-6 mt-2">
+                <div class="col-lg-3 col-6 mt-2" v-for="data in datas" :key="data.id">
                     <div class="card border-0">
                         <div class="card-img-top text-center mt-4">
-                            <img src="https://cdn-icons-png.flaticon.com/128/3839/3839474.png" width="55" alt="fiksi">
+                            <img :src="base + data.gambar" width="55" alt="{{ data.slug }}">
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title text-center fw-bold">Lorem Ipsum</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-6 mt-2">
-                    <div class="card border-0">
-                        <div class="card-img-top text-center mt-4">
-                            <img src="https://cdn-icons-png.flaticon.com/128/3839/3839474.png" width="55" alt="fiksi">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title text-center fw-bold">Lorem Ipsum</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-6 mt-2">
-                    <div class="card border-0">
-                        <div class="card-img-top text-center mt-4">
-                            <img src="https://cdn-icons-png.flaticon.com/128/3839/3839474.png" width="55" alt="fiksi">
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title text-center fw-bold">Lorem Ipsum</h5>
+                            <h5 class="card-title text-center fw-light">{{ data.judul }} </h5>
                         </div>
                     </div>
                 </div>
@@ -38,11 +35,10 @@
                             <img src="https://donasi-online.netlify.app/img/menu.73d57590.png" width="55" alt="fiksi">
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title text-center fw-bold">Lainya</h5>
+                            <h5 class="card-title text-center fw-light">Lainya</h5>
                         </div>
                     </div>
                 </div>
-              
             </div>
         </div>
     </div>

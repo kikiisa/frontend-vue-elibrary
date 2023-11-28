@@ -1,3 +1,41 @@
+<script setup>
+    import axios from "axios";
+    import { url } from "../api/Url";
+    import { useRouter } from "vue-router";
+    import Cookies from 'js-cookie'
+    import {onMounted} from 'vue'
+    import { toastError, toastSuccess } from "../lib/Toast";
+    const router = useRouter();
+    let formData = {
+        email: Cookies.get("email"),
+        user: Cookies.get("user"),
+    }
+    const logout = async () => {
+        Cookies.remove("token")
+        Cookies.remove("email")
+        Cookies.remove("user")
+        toastSuccess("Berhasil Logout")
+        router.push('/login')
+    }
+    const verify = async () => 
+    {
+        await axios.get(url + "user",{
+            headers:{
+                'Authorization': 'Bearer ' + Cookies.get('token')
+            }
+        }).then((response) => {
+            console.log(response);
+        }).catch((error) => {
+            if(error.request.status == 401){
+                toastError("Login Terlebih Dahulu")
+                router.push('/login')
+            }
+        })
+    }
+    onMounted(() => {
+        verify();
+    })
+</script>
 <template>
   <main class="container mb-4">
     <div class="row justify-content-start mt-4">
@@ -11,15 +49,13 @@
                   src="../assets/logo.png"
                   class="bg-primary rounded-circle mt-4"
                   width="100"
-                  alt=""
-                  srcset=""
+                  alt="profile"
                 />
               </div>
               <div class="col-lg-8 col-8">
-                <h5 class="fw-bold mt-4">Mohamad Rizky Isa</h5>
-                <p class="text-muted">kikiisa89@gmail.com</p>
-                <button class="btn btn-success fw-bold">Aktif</button>
-                <button class="btn btn-danger fw-bold ms-2">
+                <h5 class="fw-bold mt-4">{{ formData.user }}</h5>
+                <p class="text-muted">{{ formData.email }}</p>
+                <button @click="logout" class="btn btn-danger fw-bold ms-2">
                   Keluar <i class="fa fa-sign-out"></i>
                 </button>
               </div>
@@ -80,11 +116,10 @@
                       <th scope="col">Tanggal Di Kembalikan</th>
                       <th scope="col">Status Peminjaman</th>
                       <th scope="col">Aksi</th>
-                      
                     </tr>
                   </thead>
                   <tbody>
-                    
+                      
                   </tbody>
                 </table>
               </div>
