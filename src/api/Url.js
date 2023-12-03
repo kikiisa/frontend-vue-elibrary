@@ -1,5 +1,5 @@
-const url = "http://localhost:3030/api/"
-const base = "http://localhost:3030/"
+const url = "http://localhost:8000/api/"
+const base = "http://localhost:8000/"
 export  {
     url,base
 }
