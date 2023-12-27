@@ -10,9 +10,6 @@
       <div class="spinner-grow ms-3 text-danger" role="status">
         <span class="visually-hidden">Loading...</span>
       </div>
-      <div class="spinner-grow ms-3 text-warning" role="status">
-        <span class="visually-hidden">Loading...</span>
-      </div>
     </div>
   </div>
 </template>

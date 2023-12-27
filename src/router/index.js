@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import Cookies from 'js-cookie'
+import axios from 'axios'
+import { url } from '../api/Url'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -57,8 +59,7 @@ router.beforeEach((to, from, next) => {
 function checkIfAuthenticated() {
   // Lakukan pemeriksaan autentikasi di sini, misalnya dengan memeriksa apakah token ada atau masih valid
   // Anda dapat menggunakan cookie atau localStorage untuk menyimpan token dan memeriksanya di sini
-  const token = Cookies.get('token') // Ambil token dari cookie
+  const token = Cookies.get('token') // Ambil token dari cookie  
   return !!token // Mengembalikan nilai boolean berdasarkan apakah token ada atau tidak
 }
-
 export default router

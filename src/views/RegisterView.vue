@@ -14,7 +14,7 @@ const sendForm = reactive({
 const storeRegister = async () => {
   try {
     const response = await axios.post(url + "register", sendForm);
-    console.log(response.data)
+    console.log(response);
     if(response.request.status == 200)
     {
       sendForm.nim = "";
@@ -28,6 +28,7 @@ const storeRegister = async () => {
       toastError("Pendaftaran Gagal !")
     }
   } catch (error) {
+    console.log(error);
     if (error.response.request.status == 422) {
       const errors = error.response.data;
       for (const field in errors) {

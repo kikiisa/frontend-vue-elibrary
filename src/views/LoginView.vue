@@ -1,5 +1,5 @@
 <script setup>
-import { reactive } from "vue";
+import { onMounted, reactive } from "vue";
 import axios from "axios";
 import { url } from "../api/Url";
 import {toastError,toastSuccess} from "../lib/Toast"
@@ -37,6 +37,20 @@ const sendLogin = async () => {
     dataLogin.password = "";
   }
 };
+onMounted(async () => {
+  await axios.get(url + "user", {
+      headers: {
+          'Authorization': 'Bearer ' + Cookies.get('token')
+      }
+  }).then((response) => {   
+        
+        router.push('/account/dashboard')
+  }).catch((error) => {
+      if (error.request.status == 401) {
+         router.push('/login')
+      }
+  })
+})
 </script>
 <template>
   <main class="container mb-4">

@@ -22,9 +22,15 @@ onMounted(() => {
 <template>
   <Loading v-if="loading == false"></Loading>
   <div class="row justify-content-center" v-else>
-    <div class="col-lg-10 col-12">
+    <div class="col-lg-10 col-12" v-if="datas.length == 0">
+      <div class="bg-danger p-4 rounded text-light fw-bold text-center">
+        Data Slider Kosong <span class="fa fa-frown"></span>
+      </div>
+    </div>  
+    <div class="col-lg-10 col-12" v-else>
         <div class="card border-0">
           <div class="card-body">
+           
             <swiper auto class="text-center">
               <swiper-slide v-for="data in datas" :key="data.id">
                 <img
