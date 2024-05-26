@@ -6,7 +6,6 @@ import "swiper/css";
 import axios from "axios";
 import { url,base } from "../api/Url";
 import { onMounted } from "vue";
-
 const datas = ref([]);
 let loading = ref(false);
 const fetchData = async () => {
@@ -30,7 +29,7 @@ onMounted(() => {
     <div class="col-lg-10 col-12" v-else>
         <div class="card border-0">
           <div class="card-body">
-           
+            
             <swiper auto class="text-center">
               <swiper-slide v-for="data in datas" :key="data.id">
                 <img

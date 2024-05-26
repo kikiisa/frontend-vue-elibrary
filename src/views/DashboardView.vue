@@ -69,8 +69,8 @@ onMounted(async () => {
               <div class="col-lg-12 col-12 text-center">
                 <h5 class="fw-bold mt-4">{{ formData.user }}</h5>
                 <p class="text-muted">{{ formData.email }}</p>
-                <button @click="logout" class="w-100 btn btn-warning mb-2 fw-bold ms-2">
-                  Edit Profile <i class="fa fa-user"></i>
+                <button @click="router.push('/account/profile')" class="w-100 btn btn-warning mb-2 fw-bold ms-2">
+                  Ubah Password   <i class="fa fa-wrench"></i>
                 </button>
                 <button @click="logout" class="w-100 btn btn-danger fw-bold ms-2">
                   Keluar <i class="fa fa-sign-out"></i>
@@ -124,6 +124,7 @@ onMounted(async () => {
                 aria-labelledby="home-tab"
                 tabindex="0"
               >
+              <div class="table-responsive">
                 <table class="table">
                   <thead>
                     <tr>
@@ -176,6 +177,8 @@ onMounted(async () => {
                     </tr>
                   </tbody>
                 </table>
+
+              </div>
               </div>
               <div
                 class="tab-pane fade"
@@ -184,61 +187,63 @@ onMounted(async () => {
                 aria-labelledby="profile-tab"
                 tabindex="0"
               >
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">Nama Buku</th>
-                      <th scope="col">Tanggal Pinjam</th>
-                      <th scope="col">Tanggal Di Kembalikan</th>
-                      <th scope="col">Status Peminjaman</th>
-                    </tr>
-                  </thead>
-                  <tbody v-if="riwayatTransaksi.length != 0">
-                    <tr
-                      v-for="(rwyt, index) in riwayatTransaksi"
-                      :key="rwyt.id"
-                    >
-                      <td>{{ (index += 1) }}</td>
-                      <td>{{ rwyt.book.judul }}</td>
-                      <td>{{ rwyt.pinjam }}</td>
-                      <td>{{ rwyt.kembali }}</td>
-                      <td>
-                        <button
-                          v-if="rwyt.status == 'proses'"
-                          class="badge border-0 mb-2 w-100 bg-warning"
-                          type="submit"
-                        >
-                          Proses
-                        </button>
-
-                        <button
-                          v-else-if="rwyt.status == 'kembali'"
-                          class="badge border-0 mb-2 w-100 bg-success"
-                          type="submit"
-                        >
-                          Di Kembalikan
-                        </button>
-
-                        <button
-                          v-else
-                          class="badge border-0 mb-2 w-100 bg-info"
-                        >
-                          Di Pinjam
-                        </button>
-                      </td>
-                    </tr>
-                  </tbody>
-                  <tbody v-else>
-                    <tr>
-                      <td colspan="6" align="center">
-                        <span class="bg-danger p-2 text-white rounded-4"
-                          >Tidak ada data transaksi.</span
-                        >
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nama Buku</th>
+                        <th scope="col">Tanggal Pinjam</th>
+                        <th scope="col">Tanggal Di Kembalikan</th>
+                        <th scope="col">Status Peminjaman</th>
+                      </tr>
+                    </thead>
+                    <tbody v-if="riwayatTransaksi.length != 0">
+                      <tr
+                        v-for="(rwyt, index) in riwayatTransaksi"
+                        :key="rwyt.id"
+                      >
+                        <td>{{ (index += 1) }}</td>
+                        <td>{{ rwyt.book.judul }}</td>
+                        <td>{{ rwyt.pinjam }}</td>
+                        <td>{{ rwyt.kembali }}</td>
+                        <td>
+                          <button
+                            v-if="rwyt.status == 'proses'"
+                            class="badge border-0 mb-2 w-100 bg-warning"
+                            type="submit"
+                          >
+                            Proses
+                          </button>
+  
+                          <button
+                            v-else-if="rwyt.status == 'kembali'"
+                            class="badge border-0 mb-2 w-100 bg-success"
+                            type="submit"
+                          >
+                            Di Kembalikan
+                          </button>
+  
+                          <button
+                            v-else
+                            class="badge border-0 mb-2 w-100 bg-info"
+                          >
+                            Di Pinjam
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                    <tbody v-else>
+                      <tr>
+                        <td colspan="6" align="center">
+                          <span class="bg-danger p-2 text-white rounded-4"
+                            >Tidak ada data transaksi.</span
+                          >
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>

@@ -14,9 +14,6 @@ const router = createRouter({
     {
       path: '/about',
       name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/AboutView.vue')
     },
     {
@@ -37,6 +34,25 @@ const router = createRouter({
         requiresAuth: true
       }
     },
+    {
+      path: '/account/profile',
+      name: 'profile',
+      component: () => import ('../views/ProfileView.vue'),
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/kategori/:slug',
+      name: 'kategori',
+      component: () => import ('../views/KategoriView.vue'),
+    },
+    {
+      path: '/semua-kategori/',
+      name: 'semuakategori',
+      component: () => import ('../views/AllKategoriView.vue'),
+    },
+
 
   ]
 })
@@ -63,3 +79,4 @@ function checkIfAuthenticated() {
   return !!token // Mengembalikan nilai boolean berdasarkan apakah token ada atau tidak
 }
 export default router
+ 

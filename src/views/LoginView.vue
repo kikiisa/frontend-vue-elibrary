@@ -22,7 +22,8 @@ const sendLogin = async () => {
   } catch (error) {
     if(error.request.status == 401)
     {
-      toastError("Username Dan Password Tidak Diketahui")
+      
+      toastError(`${error.response.data.message}`)
     }else{
         const errors = error.response.data;
         for (const field in errors) {

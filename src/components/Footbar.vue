@@ -1,7 +1,6 @@
 <script setup>
 
 </script>
-
 <template>
   <footer class="fixed-bottom bg-white">
     <nav class="navbar navbar-expand-lg bg-transparent">
