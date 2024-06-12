@@ -3,15 +3,15 @@ import axios from "axios";
 import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import { url,base } from "../api/Url";
-import Book from "../components/Book.vue";
+import ModalVue from "../components/Modal.vue";
 const router = useRouter();
 let slug = ref("");
-
 let TitlePage = ref("");
 let currentPage = ref(1);
 const jenisResponse = ref("");
 let totalPage = ref(0);
 const datas = ref([]);
+const idProps = ref(null);
 async function fetchData() {
   slug.value = router.currentRoute.value.params.slug;
   const response = await axios.get(url + "kategori/" + slug.value + "?page=" + currentPage.value);
@@ -19,9 +19,10 @@ async function fetchData() {
   datas.value = response.data.data.data;
   currentPage.value = response.data.data.current_page;
   totalPage.value = response.data.data.last_page;
-
 }
-
+const sendPrposId = (id) => {
+  idProps.value = id;
+};
 const paginationButton = (id) => {
   if (id == "next") {
     if (currentPage.value < totalPage.value) {
@@ -54,7 +55,50 @@ onMounted(() => {
       </div>
       <div class="col-lg-10 col-12">
         <div class="row mt-4">
-          <div class="col-lg-4 mb-3" v-for="data in datas" :key="data.id">
+          <div class="col-lg-12 mb-3" v-for="data in datas" :key="data.id">
+            <div class="alert alert-success border-0">
+              <p
+                  class="card-title fw-bold"
+                  style="
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                  "
+                >
+                  Judul Penelitian : <strong class="fs-6">{{ data.judul }}</strong>
+                </p>
+              <p class="text-muted">
+                Author : 
+                <strong>{{ data.pengarang }}</strong
+                > | 
+                Tahun : 
+                <strong class="ms-2">{{
+                  data.tahun_terbit
+                }}</strong> | 
+                Kategori : 
+                <strong class="ms-2">{{
+                  data.kategori.judul
+                }}</strong>
+              </p>
+              <!-- <span class="badge bg-success ms-2" v-if="data.stok > 0">Tersedia</span> -->
+                  <button
+                      type="button"
+                      class="bg-primary text-white border-0 rounded-3 fw-bold"
+                      @click="sendPrposId(data.id)"
+                      data-bs-toggle="modal"
+                      data-bs-target="#exampleModal"
+                    >
+                      Pinjam Skripsi
+                </button>
+                  <a style="text-decoration: none;color:black;" :href="base + data.cover" class="ms-1 bg-info p-1 border-0 rounded-3 fw-bold">
+                      Download File <i class="fa fa-download"></i>
+                  </a>
+                <span class="badge bg-danger ms-2" v-if="data.stok < 0">Telah Di Pinjam</span>
+                <!-- <RouterLink style="text-decoration: none;" to="/" class="badge bg-primary ms-2">Detail</RouterLink> -->
+            </div>
+          </div>
+
+          <!-- <div class="col-lg-4 mb-3" v-for="data in datas" :key="data.id">
             <div class="card">
               <div class="card-img-top">
                 <img
@@ -107,7 +151,7 @@ onMounted(() => {
                 </button>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
       <div class="row justify-content-center" v-if="totalPage > 1">
@@ -132,6 +176,7 @@ onMounted(() => {
         >
       </div>
     </div>
+    <ModalVue :idprops="idProps"></ModalVue>
   </main>
 </template>
 <style scoped>

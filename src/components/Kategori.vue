@@ -5,14 +5,17 @@
     import { url,base } from '../api/Url';
     const datas = ref([])
     let loading = ref(false)
+    const idProps = ref(null);
+
     const fetchData = async () => {
         const response = await axios.get(url + 'kategori')
         loading.value = true
         datas.value = response.data.data
     }
+  
     onMounted(() => {
         fetchData()
-    })
+    });
 </script>
 <template>
     <Loading v-if="loading == false"/>

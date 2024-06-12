@@ -4,9 +4,9 @@ import Cookies from 'js-cookie'
 import axios from 'axios'
 import { url } from '../api/Url'
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+    history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    {
+    { 
       path: '/',
       name: 'home',
       component: HomeView

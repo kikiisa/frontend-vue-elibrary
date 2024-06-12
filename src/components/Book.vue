@@ -15,6 +15,7 @@ let currentPage = ref(1);
 let totalPage = ref(0);
 const search = ref("");
 const idProps = ref(null);
+
 const searching = async () => {
   await axios
     .get(`${url}search-buku/${search.value}?page=${currentPage.value}`)
@@ -66,7 +67,7 @@ onMounted(() => {
         <input
           type="text"
           v-model="search"
-          placeholder="Cari Buku Disini"
+          placeholder="Cari Skripsi Disini"
           @keyup="searchData"
           class="form-control fs-5"
         />
@@ -74,65 +75,105 @@ onMounted(() => {
     </div>
     <div class="col-lg-10 col-12 mt-2" v-if="datas.length == 0">
       <div class="bg-danger p-3 rounded fw-bold text-light text-center">
-        Maaf Data Kosong <span class="fa fa-frown"></span>
+        Maaf Data Tidak Di Temukan <span class="fa fa-frown"></span>
       </div>
     </div>
     <div class="col-lg-10 col-12">
       <div class="row mt-4">
-        <div class="col-lg-4 mb-3" v-for="data in datas" :key="data.id">
-          <div class="card">
-            <div class="card-img-top">
-              <img
-                class="cover-book text-center mt-3"
-                width="200"
-                :src="base + data.cover"
-                :alt="data.id_buku"
-              />
-            </div>
-            <div class="card-body">
-              <h5
-                class="card-title fw-bold"
-                style="
-                  white-space: nowrap;
-                  overflow: hidden;
-                  text-overflow: ellipsis;
-                "
-              >
-                {{ data.judul }}
-              </h5>
-              <p class="text-muted">
-                  <strong class="badge bg-primary">{{ data.pengarang }}</strong
-                  >
-                  <strong class="ms-2 badge bg-success">Tahun : {{
-                    data.tahun_terbit
-                  }}</strong>
-                  <strong class="badge bg-info">Kategori : {{
-                    data.kategori.judul
-                  }}</strong>
-                </p>
-            </div>
-            <div class="card-footer">
-                
-              <span
-                v-if="data.stock > 0"
-                class="badge bg-dark fw-bold ms-2"
-              >
-                Stock Buku : {{ data.stock }}
-              </span>
-              <span class="badge bg-danger ms-2" v-else>Sold Out</span>
-              <RouterLink style="text-decoration: none;" to="/" class="badge bg-primary ms-2">Detail</RouterLink>
-              <button
-                  type="button"
-                  class="badge ms-2 w-100 border-0 bg-primary mt-2 fw-bold"
-                  @click="sendPrposId(data.id)"
-                  data-bs-toggle="modal"
-                  data-bs-target="#exampleModal"
+          <div class="col-lg-12 mb-3" v-for="data in datas" :key="data.id">
+            <div class="bg-white p-2 rounded-4 shadow border-0">
+              <p
+                  class="card-title fw-bold"
+                  style="
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                  "
                 >
-                  Pinjam Buku
-            </button>
+                  Judul Penelitian : <strong class="fs-6">{{ data.judul }}</strong>
+                </p>
+              <p class="text-muted">
+                Author : 
+                <strong>{{ data.pengarang }}</strong
+                > | 
+                Tahun : 
+                <strong class="ms-2">{{
+                  data.tahun_terbit
+                }}</strong> | 
+                Kategori : 
+                <strong class="ms-2">{{
+                  data.kategori.judul
+                }}</strong>
+              </p>
+              <!-- <span class="badge bg-success ms-2" v-if="data.stok > 0">Tersedia</span> -->
+                  <button
+                      type="button"
+                      class="bg-primary text-white border-0 rounded-3 fw-bold"
+                      @click="sendPrposId(data.id)"
+                      data-bs-toggle="modal"
+                      data-bs-target="#exampleModal"
+                    >
+                      Pinjam Skripsi
+                </button>
+                  <a style="text-decoration: none;color:black;" :href="base + data.cover" class="ms-1 bg-info p-1 border-0 rounded-3 fw-bold">
+                      Download File <i class="fa fa-download"></i>
+                  </a>
+                <span class="badge bg-danger ms-2" v-if="data.stok < 0">Telah Di Pinjam</span>
+                <!-- <RouterLink style="text-decoration: none;" to="/" class="badge bg-primary ms-2">Detail</RouterLink> -->
             </div>
+            <!-- <div class="card">
+              <div class="card-img-top">
+                <img
+                  class="cover-book text-center mt-3"
+                  width="200"
+                  :src="base + data.cover"
+                  :alt="data.id_buku"
+                />
+              </div>
+              <div class="card-body">
+                <h5
+                  class="card-title fw-bold"
+                  style="
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                  "
+                >
+                  {{ data.judul }}
+                </h5>
+                <p class="text-muted">
+                    <strong class="badge bg-primary">{{ data.pengarang }}</strong
+                    >
+                    <strong class="ms-2 badge bg-success">Tahun : {{
+                      data.tahun_terbit
+                    }}</strong>
+                    <strong class="badge bg-info">Kategori : {{
+                      data.kategori.judul
+                    }}</strong>
+                  </p>
+              </div>
+              <div class="card-footer">
+                  
+                <span
+                  v-if="data.stock > 0"
+                  class="badge bg-dark fw-bold ms-2"
+                >
+                  Stock Buku : {{ data.stock }}
+                </span>
+                <span class="badge bg-danger ms-2" v-else>Sold Out</span>
+                <RouterLink style="text-decoration: none;" to="/" class="badge bg-primary ms-2">Detail</RouterLink>
+                <button
+                    type="button"
+                    class="badge ms-2 w-100 border-0 bg-primary mt-2 fw-bold"
+                    @click="sendPrposId(data.id)"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                  >
+                    Pinjam Buku
+              </button>
+              </div>
+            </div> -->
           </div>
-        </div>
       </div>
     </div>
     <div class="row justify-content-center" v-if="totalPage > 1">
@@ -158,6 +199,7 @@ onMounted(() => {
     </div>
   </div>
   <ModalVue :idprops="idProps"></ModalVue>
+
 </template>
 <style scoped>
 .cover-book {
