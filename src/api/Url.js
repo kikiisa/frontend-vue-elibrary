@@ -1,5 +1,5 @@
-const url = "http://localhost:8000/api/"
-const base = "http://localhost:8000/"
+const url = "https://firmaniphone.cloud/api/"
+const base = "https://firmaniphone.cloud/"
 export  {
     url,base
 }
